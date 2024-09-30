@@ -1,11 +1,13 @@
 package com.emazon.ms_report.infra.config;
 
+import com.emazon.ms_report.ConsUtils;
 import com.emazon.ms_report.infra.security.entrypoint.CustomBasicAuthenticationEntryPoint;
 import com.emazon.ms_report.infra.security.entrypoint.CustomJWTEntryPoint;
 import com.emazon.ms_report.infra.security.filter.JwtValidatorFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -29,7 +31,8 @@ public class SecurityConfig {
             .httpBasic(httpBasic -> httpBasic.authenticationEntryPoint(customBasicAuthenticationEntryPoint))
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> {
-                auth.requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll();
+                auth.requestMatchers(HttpMethod.POST, ConsUtils.BASIC_URL).hasRole(ConsUtils.CLIENT);
+                auth.requestMatchers(ConsUtils.SWAGGER_URL, ConsUtils.SWAGGER_DOCS_URL).permitAll();
 
                 auth.anyRequest().denyAll();
             });
