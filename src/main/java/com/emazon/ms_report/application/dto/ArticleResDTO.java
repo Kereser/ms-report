@@ -1,5 +1,8 @@
 package com.emazon.ms_report.application.dto;
 
+import com.emazon.ms_report.ConsUtils;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,12 +15,30 @@ import java.util.Set;
 @Setter
 @Builder
 public class ArticleResDTO {
+    @NotNull
+    @Positive
     private Long id;
+
+    @NotEmpty
+    @Size(min = ConsUtils.INTEGER_3, max = ConsUtils.INTEGER_30)
     private String name;
-    private String description;
+
+    @NotNull
+    @Positive
     private BigDecimal price;
+
+    @NotNull
+    @Positive
     private Long quantity;
-    private Set<CategoryArticleResDTO> categories;
+
+    @NotNull
+    private Set<@Valid CategoryArticleResDTO> categories;
+
+    @NotNull
+    @Valid
     private BrandResDTO brand;
+
+    @NotNull
+    @PastOrPresent
     private LocalDateTime updatedAt;
 }
