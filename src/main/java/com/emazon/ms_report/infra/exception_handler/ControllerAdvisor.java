@@ -1,5 +1,6 @@
 package com.emazon.ms_report.infra.exception_handler;
 
+import com.emazon.ms_report.ConsUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -32,12 +33,12 @@ public class ControllerAdvisor {
     public ResponseEntity<ExceptionResponse> handleNotValidReqParam(MethodArgumentTypeMismatchException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ExceptionResponse.builder()
                 .message(ExceptionResponse.NOT_VALID_PARAM)
-                .fieldErrors(Map.of(ex.getName(), ex.getValue() != null ? ex.getValue() : "")).build());
+                .fieldErrors(Map.of(ex.getName(), ex.getValue() != null ? ex.getValue() : ConsUtils.EMPTY)).build());
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ExceptionResponse> handleBadRequestOnConstraintsForRequest(HttpMessageNotReadableException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(ExceptionResponse.builder().message(ex.getMessage().split(":")[0]).build());
+                .body(ExceptionResponse.builder().message(ex.getMessage().split(ConsUtils.COLON_DELIMITER)[0]).build());
     }
 }
