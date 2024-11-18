@@ -13,6 +13,16 @@ public class ConsUtils {
     public static final String AUTHORIZATION = "Authorization";
     public static final String BEARER = "Bearer ";
 
+    /*** Methods ***/
+    public static final String GET = "GET";
+    public static final String POST = "POST";
+    public static final String PUT = "PUT";
+    public static final String DELETE = "DELETE";
+    public static final String REQUESTED_WITH = "X-Requested-With";
+    public static final String CONTENT_TYPE = "Content-Type";
+    public static final String FRONT_URL = "http://localhost:4200";
+    public static final String MATCH_ALL_URL = "/**";
+
     /*** Validations ***/
     public static final int INTEGER_3 = 3;
     public static final int INTEGER_30 = 30;
@@ -37,4 +47,7 @@ public class ConsUtils {
 
     public static final String REQUIRED_BODY = "Required request body is missing";
 
+    public static final String EMPTY = "";
+    public static final String COLON_DELIMITER = ":";
+    public static final String COMMA_DELIMITER = ",";
 }
